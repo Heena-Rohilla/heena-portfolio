@@ -1,0 +1,789 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heena — AI , Quantum &amp; Security</title>
+<meta name="description" content="Portfolio of Heena — Mathematics &amp; Computer Applications student working across Data Analytics, Quantum Machine Learning and Cybersecurity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080b14;
+    --bg-panel:#10152a;
+    --bg-panel-2:#141a33;
+    --cyan:#4ce0d2;
+    --violet:#9b87f5;
+    --rose:#ff6f9c;
+    --amber:#ffb454;
+    --text:#edf1f7;
+    --muted:#8d97b0;
+    --line:rgba(148,158,196,0.14);
+    --line-strong:rgba(148,158,196,0.28);
+    --radius:14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(155,135,245,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at -10% 20%, rgba(76,224,210,0.10), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:rgba(76,224,210,0.3); color:#fff;}
+  a{color:inherit; text-decoration:none;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cyan); outline-offset:3px; border-radius:4px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    backdrop-filter:blur(14px);
+    background:rgba(8,11,20,0.72);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; height:72px;}
+  .logo{font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:1.15rem; letter-spacing:0.02em; display:flex; align-items:center; gap:8px;}
+  .logo-dot{width:9px; height:9px; border-radius:50%; background:var(--cyan); box-shadow:0 0 12px var(--cyan);}
+  .navlinks{display:flex; gap:2rem; font-size:0.92rem; color:var(--muted);}
+  .navlinks a{position:relative; padding:6px 0; transition:color .2s;}
+  .navlinks a:hover, .navlinks a.active{color:var(--text);}
+  .navlinks a::after{
+    content:''; position:absolute; left:0; bottom:0; height:1px; width:0;
+    background:linear-gradient(90deg,var(--cyan),var(--violet)); transition:width .25s ease;
+  }
+  .navlinks a:hover::after, .navlinks a.active::after{width:100%;}
+  .nav-cta{
+    border:1px solid var(--line-strong); padding:8px 18px; border-radius:999px; font-size:0.85rem;
+    transition:all .2s;
+  }
+  .nav-cta:hover{border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 20px rgba(76,224,210,0.15);}
+  .navtoggle{display:none; background:none; border:none; color:var(--text); font-size:1.4rem; cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh; display:flex; align-items:center;
+    padding-top:110px; padding-bottom:60px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:48px; align-items:center; width:100%;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--cyan); margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--cyan);}
+  .hero h1{
+    font-size:clamp(3rem, 7vw, 5.2rem); font-weight:700; line-height:0.98; margin-bottom:22px;
+    background:linear-gradient(120deg, #fff 40%, var(--cyan) 75%, var(--violet) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero .tagline{
+    font-size:1.28rem; color:var(--text); font-weight:500; margin-bottom:18px; max-width:560px;
+    padding:14px 18px; border-left:2px solid var(--cyan);
+    background:linear-gradient(90deg, rgba(76,224,210,0.08), transparent 80%);
+    border-radius:0 10px 10px 0;
+  }
+  .hero p.summary{color:var(--muted); font-size:1rem; max-width:540px; margin-bottom:34px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:38px;}
+  .btn{
+    padding:13px 26px; border-radius:999px; font-size:0.92rem; font-weight:600; cursor:pointer; border:1px solid transparent;
+    transition:transform .2s, box-shadow .2s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:linear-gradient(120deg,var(--cyan),var(--violet)); color:#080b14;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px rgba(76,224,210,0.25);}
+  .btn-ghost{border-color:var(--line-strong); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan); transform:translateY(-2px);}
+  .hero-meta{display:flex; gap:28px; flex-wrap:wrap; font-size:0.85rem; color:var(--muted);}
+  .hero-meta span{display:flex; align-items:center; gap:8px;}
+  .hero-meta .mono{color:var(--text);}
+
+  .hero-visual{position:relative; height:520px;}
+  #network{width:100%; height:100%; display:block;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:110px 0; position:relative; border-top:1px solid var(--line);}
+  .section-head{margin-bottom:56px; max-width:640px;}
+  .section-eyebrow{font-family:'JetBrains Mono',monospace; font-size:0.76rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--violet); margin-bottom:12px;}
+  .section-head h2{font-size:clamp(2rem,4vw,2.7rem); font-weight:600;}
+  .section-head p{color:var(--muted); margin-top:14px; font-size:1.02rem;}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.2fr 0.8fr; gap:48px;}
+  .about-grid p{color:var(--muted); margin-bottom:16px; font-size:1.02rem;}
+  .about-grid p strong{color:var(--text); font-weight:600;}
+  .edu-card{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); padding:26px;
+    margin-bottom:16px;
+  }
+  .edu-card .school{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.05rem; margin-bottom:4px;}
+  .edu-card .degree{color:var(--muted); font-size:0.92rem; margin-bottom:10px;}
+  .edu-card .cgpa{font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:var(--cyan);}
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .timeline{position:relative; padding-left:40px;}
+  .timeline::before{content:''; position:absolute; left:8px; top:6px; bottom:6px; width:1px; background:linear-gradient(var(--cyan),var(--violet) 60%, transparent);}
+  .tl-item{position:relative; padding-bottom:48px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{position:absolute; left:-40px; top:4px; width:17px; height:17px; border-radius:50%; background:var(--bg); border:2px solid var(--cyan); box-shadow:0 0 0 4px rgba(76,224,210,0.08);}
+  .tl-date{font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--cyan); margin-bottom:6px; display:block;}
+  .tl-role{font-family:'Space Grotesk',sans-serif; font-size:1.18rem; font-weight:600; margin-bottom:2px;}
+  .tl-org{color:var(--violet); font-size:0.92rem; margin-bottom:12px; font-weight:500;}
+  .tl-item ul{color:var(--muted); font-size:0.96rem; padding-left:18px;}
+  .tl-item li{margin-bottom:6px;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  .skill-card{background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); padding:26px; transition:border-color .25s, transform .25s;}
+  .skill-card:hover{border-color:var(--line-strong); transform:translateY(-3px);}
+  .skill-card h3{font-size:1.02rem; margin-bottom:16px; display:flex; align-items:center; gap:10px;}
+  .skill-card h3 .dot{width:8px; height:8px; border-radius:50%; background:var(--cyan);}
+  .skill-card:nth-child(2) h3 .dot{background:var(--violet);}
+  .skill-card:nth-child(3) h3 .dot{background:var(--rose);}
+  .skill-card:nth-child(4) h3 .dot{background:var(--amber);}
+  .skill-card:nth-child(5) h3 .dot{background:var(--violet);}
+  .skill-card:nth-child(6) h3 .dot{background:var(--cyan);}
+  .pill-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .pill{
+    font-family:'JetBrains Mono',monospace; font-size:0.78rem; padding:6px 13px; border-radius:999px;
+    border:1px solid var(--line-strong); color:var(--muted); transition:all .2s; cursor:default;
+  }
+  .pill:hover{color:var(--cyan); border-color:var(--cyan); background:rgba(76,224,210,0.06);}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .proj-card{
+    --accent:var(--cyan);
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); padding:28px;
+    cursor:pointer; transition:border-color .25s, transform .25s, box-shadow .25s; position:relative; overflow:hidden;
+    border-top:2px solid var(--accent);
+  }
+  .proj-card:hover{border-color:var(--accent); border-top-color:var(--accent); transform:translateY(-4px); box-shadow:0 14px 34px -20px var(--accent);}
+  .proj-card .tag{
+    font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.08em;
+    margin-bottom:12px; display:inline-block; padding:4px 11px; border-radius:6px; background:color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  .proj-card h3{font-size:1.2rem; margin-bottom:10px;}
+  .proj-card .blurb{color:var(--muted); font-size:0.92rem;}
+  .proj-card .expand{
+    max-height:0; overflow:hidden; transition:max-height .4s ease, margin-top .4s ease;
+    color:var(--muted); font-size:0.9rem; border-top:1px solid var(--line);
+  }
+  .proj-card.open .expand{max-height:400px; margin-top:16px; padding-top:16px;}
+  .proj-card .expand ul{padding-left:18px; margin-top:8px;}
+  .proj-card .expand li{margin-bottom:6px;}
+  .proj-card .toggle-hint{
+    margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--accent);
+    display:flex; align-items:center; gap:6px;
+  }
+  .proj-card .toggle-hint svg{transition:transform .3s;}
+  .proj-card.open .toggle-hint svg{transform:rotate(180deg);}
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-bottom:22px;}
+  .ach-card{background:var(--bg-panel-2); border:1px solid var(--line); border-radius:var(--radius); padding:26px;}
+  .ach-card .badge{
+    display:inline-block; font-family:'JetBrains Mono',monospace; font-size:0.72rem; padding:4px 11px; border-radius:6px;
+    background:rgba(76,224,210,0.1); color:var(--cyan); margin-bottom:12px;
+  }
+  .ach-card h3{font-size:1.05rem; margin-bottom:8px;}
+  .ach-card p{color:var(--muted); font-size:0.9rem;}
+  .workshop-strip{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px 26px;
+    color:var(--muted); font-size:0.92rem;
+  }
+  .workshop-strip strong{color:var(--text);}
+
+  /* ---------- LEADERSHIP ---------- */
+  .lead-row{display:flex; gap:18px; flex-wrap:wrap;}
+  .lead-chip{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:999px; padding:14px 24px;
+    font-size:0.92rem; display:flex; align-items:center; gap:10px;
+  }
+  .lead-chip .dot{width:7px; height:7px; border-radius:50%; background:var(--violet);}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{padding:100px 0 50px; border-top:1px solid var(--line); text-align:center;}
+  footer h2{font-size:clamp(2rem,5vw,3.2rem); margin-bottom:20px;}
+  footer p.sub{color:var(--muted); max-width:480px; margin:0 auto 40px;}
+  .contact-row{display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:60px;}
+  .contact-chip{
+    display:flex; align-items:center; gap:10px; background:var(--bg-panel); border:1px solid var(--line);
+    padding:14px 24px; border-radius:999px; font-size:0.92rem; transition:all .2s;
+  }
+  .contact-chip:hover{border-color:var(--cyan); color:var(--cyan); transform:translateY(-2px);}
+  .foot-bottom{color:var(--muted); font-size:0.82rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; border-top:1px solid var(--line); padding-top:26px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .navlinks{position:fixed; top:72px; left:0; right:0; background:rgba(8,11,20,0.98); flex-direction:column; gap:0; padding:10px 0; transform:translateY(-120%); transition:transform .3s ease; border-bottom:1px solid var(--line);}
+    .navlinks.open{transform:translateY(0);}
+    .navlinks a{padding:16px 32px; width:100%;}
+    .navtoggle{display:block;}
+    .nav-cta{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{height:340px; order:-1;}
+    .about-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    .proj-grid{grid-template-columns:1fr;}
+    .ach-grid{grid-template-columns:1fr;}
+    section{padding:80px 0;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="logo-dot"></span>HEENA</div>
+    <div class="navlinks" id="navlinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+    <button class="navtoggle" id="navtoggle" aria-label="Toggle menu">☰</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="border-top:none; padding-top:110px;">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Mathematics · Quantum ML · AI · Cybersecurity</div>
+    
+      <h1>Heena</h1>
+      <p class="tagline">Building intelligent solutions through Mathematics, AI, Data Analytics, Quantum Computing, and Cybersecurity.</p>
+      <p class="summary">B.A. Mathematics Honours student at the University of Delhi, minoring in Computer Science. I enjoy combining mathematics with modern technologies to solve complex problems. My experience includes quantum machine learning, predictive analytics, cybersecurity, and intelligent systems, with a strong interest in research and innovation.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+         <a href="Resume.pdf" class="btn btn-ghost">Download Resume</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <canvas id="network"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+
+    <div class="section-head reveal">
+      <div class="section-eyebrow">01 — About</div>
+      <h2>Mathematics, AI & Quantum Technologies</h2>
+    </div>
+
+    <div class="about-grid">
+
+      <!-- Left Side -->
+      <div class="reveal about-content">
+
+        <p>
+          <strong>I am a Mathematics Honours student at the University of Delhi, minoring in Computer Science, with a strong interest in Artificial Intelligence, Data Analytics, Quantum Computing, Cybersecurity, and emerging research.</strong>
+          I enjoy applying mathematical thinking and computational techniques to solve real-world challenges through intelligent and secure technologies.
+        </p>
+
+        <p>
+          My experience spans <strong>Data Analytics, Quantum Machine Learning, predictive modeling, cybersecurity, and IoT security</strong>, where I have worked with diverse datasets, developed machine learning solutions, and contributed to innovative projects in quantum technologies. I am proficient in <strong>Python, SQL, Scikit-learn, Qiskit, and data visualization</strong>, with a passion for transforming complex data into meaningful insights and practical solutions.
+        </p>
+
+        <p>
+          Beyond academics, I actively contribute to <strong>research, leadership, and community service</strong>. As an NCC Cadet and volunteer leader across multiple NGOs, I have coordinated large teams, organized community initiatives, and strengthened my leadership, teamwork, and problem-solving abilities while maintaining a strong commitment to continuous learning and innovation.
+        </p>
+
+      </div>
+
+      <!-- Right Side -->
+      <div class="reveal">
+
+        <div class="edu-card">
+          <div class="school">Maitreyi College, University of Delhi</div>
+          <div class="degree">B.A. Mathematics Honours, Minor in Computer Science · 2022–Present</div>
+          <div class="cgpa">CGPA 8.4 / 10</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="school">Senior Secondary — CBSE</div>
+          <div class="degree">2022</div>
+          <div class="cgpa">81%</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="school">Matriculation — HBSE</div>
+          <div class="degree">2020</div>
+          <div class="cgpa">94%</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">02 — Experience</div>
+      <h2>Professional Experience</h2>
+      <p>In reverse chronological order — most recent first.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">APR 2026 — May 2026</span>
+        <div class="tl-role">Subject Matter Expert (SME)</div>
+        <div class="tl-org">Preproute (DU-incubated, Udhmodya Foundation)</div>
+        <ul>
+          <li>Structured and processed academic datasets for competitive exams, including CUET UG/PG.</li>
+          <li>Applied data validation and consistency checks to keep content high-quality.</li>
+          <li>Identified patterns in question formats and exam standards, sharpening analytical and data-structuring skills.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">SEP 2025 — OCT 2025</span>
+        <div class="tl-role">Quantum Communication Associate</div>
+        <div class="tl-org">Donyi Polo Cultural &amp; Charitable Trust</div>
+        <ul>
+          <li>Conducted research and developed digital content; designed brochures and posters.</li>
+          <li>Managed social media content and supported campaign strategy and engagement.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">JUN 2025 — AUG 2025</span>
+        <div class="tl-role">Quantum Machine Learning Intern</div>
+        <div class="tl-org">CDAC, Noida</div>
+        <ul>
+          <li>Applied Quantum Machine Learning with Strawberry Fields to process multi-format weather data.</li>
+          <li>Collected, merged and analyzed datasets from diverse sources — NetCDF, HDF5, JSON, CSV.</li>
+          <li>Used numerical weather equations to estimate temperature, pressure, rainfall and humidity, creating predictive models with visual analytics.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">JUL 2024 — OCT 2024</span>
+        <div class="tl-role">Data Analyst</div>
+        <div class="tl-org">DDS Worldwide Trade Pvt. Ltd.</div>
+        <ul>
+          <li>Accurately entered and managed large datasets, using Excel for data analysis, trend identification and reporting.</li>
+          <li>Created 35+ Canva designs — posters, reels and visuals — to manage and grow social media presence, driving a 40% increase in engagement.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">FEB 2024 — MAR 2024</span>
+        <div class="tl-role">Digital Marketing Intern</div>
+        <div class="tl-org">IIDE — The Digital School</div>
+        <ul>
+          <li>Contributed to SEO optimization, content visibility and organic reach through blog writing.</li>
+          <li>Managed end-to-end SEO strategy — keyword research, on-page SEO and performance analytics.</li>
+          <li>Used Canva to build content strategies and drive audience engagement.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">03 — Skills</div>
+      <h2>The toolkit, grouped by what it's for</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <h3><span class="dot"></span>Programming</h3>
+        <div class="pill-row">
+          <span class="pill">Python</span><span class="pill">C++</span><span class="pill">JavaScript</span><span class="pill">HTML</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="dot"></span>Data Tools</h3>
+        <div class="pill-row">
+          <span class="pill">SQL</span><span class="pill">Scikit-learn</span><span class="pill">Pandas</span><span class="pill">Matplotlib</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="dot"></span>Cybersecurity</h3>
+        <div class="pill-row">
+          <span class="pill">Network Security</span><span class="pill">Cryptography</span><span class="pill">XAI</span><span class="pill">Vulnerability Assessment</span><span class="pill">Incident Response</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="dot"></span>Quantum Computing</h3>
+        <div class="pill-row">
+          <span class="pill">Qiskit</span><span class="pill">Strawberry Fields</span><span class="pill">Quantum Algorithms</span><span class="pill">QKD</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="dot"></span>Digital Tools</h3>
+        <div class="pill-row">
+          <span class="pill">Canva</span><span class="pill">Microsoft Word</span><span class="pill">Microsoft Excel</span><span class="pill">SEO Tools</span>
+        </div>
+      </div>
+      <div class="skill-card" style="grid-column:1 / -1;">
+        <h3><span class="dot"></span>Operating Systems</h3>
+        <div class="pill-row">
+          <span class="pill">Linux</span><span class="pill">Windows</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">04 — Projects</div>
+      <h2>Click a card to see how it was built</h2>
+    </div>
+    <div class="proj-grid reveal" id="projGrid">
+      <div class="proj-card" tabindex="0" role="button" aria-expanded="false" style="--accent:var(--cyan)">
+        <span class="tag">Accessibility · 02/2024–04/2024</span>
+        <h3>QR-Based Indoor Navigation for the Visually Impaired</h3>
+        <p class="blurb">Audio-guided navigation across Maitreyi College, built around simple QR codes — with NSS.</p>
+        <div class="expand">
+          <p>A QR-based navigation system letting visually impaired users scan a code and receive audio-guided directions — built as a community-driven digital accessibility initiative under NSS at Maitreyi College.</p>
+          <ul>
+            <li>Developed step-based navigation logic for indoor movement.</li>
+            <li>Optimized QR placement across campus for usability and accessibility.</li>
+            <li>Recognized with a Certificate of Appreciation by NSS, Maitreyi College (NAAC A++).</li>
+          </ul>
+        </div>
+        <div class="toggle-hint">Tap to expand <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+
+      <div class="proj-card" tabindex="0" role="button" aria-expanded="false" style="--accent:var(--violet)">
+        <span class="tag">Hardware · 08/2024–10/2024</span>
+        <h3>Beacon-Based Indoor Navigation App</h3>
+        <p class="blurb">Bluetooth beacon positioning with a mobile app front-end — "Canary," with CURE India.</p>
+        <div class="expand">
+          <p>Built with CURE India and Maitreyi College, DU, as Jr. Hardware Developer: a Bluetooth beacon-based indoor positioning system for real-time navigation, paired with a mobile app.</p>
+          <ul>
+            <li>Worked on hardware setup, signal calibration and beacon placement.</li>
+            <li>Collaborated on mobile app integration for accessibility.</li>
+            <li>Launched at Pandit Deendayal Upadhyaya National Institute for Persons with Physical Disabilities, New Delhi.</li>
+            <li>Awarded a Memento of Appreciation for the contribution.</li>
+          </ul>
+        </div>
+        <div class="toggle-hint">Tap to expand <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+
+      <div class="proj-card" tabindex="0" role="button" aria-expanded="false" style="--accent:var(--rose)">
+        <span class="tag">Cybersecurity · IoT</span>
+        <h3>SentinelShield</h3>
+        <p class="blurb">A quantum-resistant security framework for wearable IoT devices.</p>
+        <div class="expand">
+          <p>Built for the Cyber Security Grand Challenge 2.0 (MeitY, Government of India) — a multi-layered security framework for wearables that assumes tomorrow's attackers will have quantum computers.</p>
+          <ul>
+            <li>Integrated CRYSTALS-Kyber and AES-256 encryption.</li>
+            <li>Added AI-based intrusion detection, secure boot and tamper detection.</li>
+            <li>Adaptive authentication that responds to device context.</li>
+            <li>Cleared the first round of this national-level competition, winning ₹5 lakh from a ₹6.85 crore prize pool.</li>
+          </ul>
+        </div>
+        <div class="toggle-hint">Tap to expand <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+
+      <div class="proj-card" tabindex="0" role="button" aria-expanded="false" style="--accent:var(--amber)">
+        <span class="tag">Cybersecurity · GenAI</span>
+        <h3>Auto-SOC</h3>
+        <p class="blurb">An AI-powered security operations assistant, built as team lead.</p>
+        <div class="expand">
+          <p>Led team "Byte Benders" at the Generative AI Hackathon, IIT Jammu, applying generative AI to speed up how a security operations center triages threats.</p>
+          <ul>
+            <li>Used Pathway VectorDB and vector embeddings for retrieval.</li>
+            <li>Automated workflows with Splunk and machine learning.</li>
+            <li>Reached the final round of the hackathon.</li>
+          </ul>
+        </div>
+        <div class="toggle-hint">Tap to expand <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">05 — Achievements &amp; Learning</div>
+      <h2>Competitions, and the workshops behind them</h2>
+    </div>
+    <div class="ach-grid reveal">
+      <div class="ach-card">
+        <span class="badge">₹5 Lakh Prize · Round 1 Cleared</span>
+        <h3>Cyber Security Grand Challenge 2.0</h3>
+        <p>MeitY, Government of India — cleared the first round and won ₹5 lakh in a national-level competition with a total prize pool of ₹6.85 crore, for SentinelShield.</p>
+      </div>
+      <div class="ach-card">
+        <span class="badge">Final Round</span>
+        <h3>Generative AI Hackathon, IIT Jammu</h3>
+        <p>Team Leader of Byte Benders, applying generative AI tools to real-world problem-solving with Auto-SOC.</p>
+      </div>
+      <div class="ach-card">
+        <span class="badge">2nd in Town — Merit List</span>
+        <h3>Academic Excellence</h3>
+        <p>Achieved a 9.4 CGPA in Matriculation with 2nd position in town (merit list), alongside internships spanning digital marketing and data analysis.</p>
+      </div>
+      <div class="ach-card">
+        <span class="badge">Workshops &amp; FDPs</span>
+        <h3>Quantum &amp; Security Training</h3>
+        <p>Quantum Mechanics (JIIT Noida &amp; NASI); Post-Quantum Cryptography &amp; Quantum Technologies (MNIT Jaipur, IIT Guwahati, NIT Warangal, NIT Patna, University of Delhi, MeitY).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">06 — Leadership</div>
+      <h2>Beyond the lab</h2>
+    </div>
+    <div class="ach-grid reveal">
+      <div class="ach-card">
+        <span class="badge">2022 – 2025</span>
+        <h3>Youth for Seva (NGO)</h3>
+        <p>Contributed to flagship events like NAVODIT and Learning Center visits — leading crowd management and coordination, and planning large-scale community events.</p>
+      </div>
+      <div class="ach-card">
+        <span class="badge">2024 – 2025</span>
+        <h3>Sewa International (NGO)</h3>
+        <p>Assessed school hygiene and educated children on healthy practices. Led and coordinated 100 fellows at the Grassroots Leadership Camp during the Seva Fellowship final round.</p>
+      </div>
+      <div class="ach-card" style="grid-column:1 / -1;">
+        <span class="badge">2022 – 2025 · NCC 'B' &amp; 'C' Certificate</span>
+        <h3>National Cadet Corps (NCC) Cadet</h3>
+        <p>Completed NCC training with a focus on discipline and teamwork; participated in CATC and national-level camps including the Independence Day Camp, building leadership and coordination skills over three years.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's build something.</h2>
+    <p class="sub">Open to roles in Data Analytics, AI/ML, Cybersecurity or Quantum Technologies. The fastest way to reach me is email.</p>
+    <div class="contact-row">
+      <a class="contact-chip" href="mailto:heenarohilla03@gmail.com">✉️ heenarohilla03@gmail.com</a>
+      <a class="contact-chip" href="tel:+919991079622">☎ +91 999-107-9622</a>
+      <a class="contact-chip" href="https://www.linkedin.com/in/heena-rohilla/" target="_blank" rel="noopener">🔗 linkedin</a>
+      <span class="contact-chip" style="cursor:default;">📍 Delhi, India</span>
+    </div>
+    <div class="foot-bottom wrap" style="padding:0;">
+      <span>© 2026 Heena. Built with care.</span>
+      <span class="mono">Mathematics · Quantum ML · AI · Cybersecurity</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navtoggle = document.getElementById('navtoggle');
+  const navlinks = document.getElementById('navlinks');
+  navtoggle.addEventListener('click', () => navlinks.classList.toggle('open'));
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('open')));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id], footer[id]');
+  const navA = document.querySelectorAll('.navlinks a');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navA.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  sections.forEach(s => spy.observe(s));
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('in'); revealObs.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  // Project card expand
+  document.querySelectorAll('.proj-card').forEach(card => {
+    const toggle = () => {
+      const open = card.classList.toggle('open');
+      card.setAttribute('aria-expanded', open);
+      card.querySelector('.toggle-hint').firstChild.textContent = open ? 'Tap to collapse ' : 'Tap to expand ';
+    };
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+
+  // ---------- Hero network canvas: identity graph ----------
+  const canvas = document.getElementById('network');
+  const ctx = canvas.getContext('2d');
+  let W, H, DPR;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    const rect = canvas.parentElement.getBoundingClientRect();
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = rect.width; H = rect.height;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const domains = ['Quantum','AI','Cyber','Math','ML'];
+  const cx = () => W/2, cy = () => H/2;
+  const orbitR = () => Math.min(W,H) * 0.36;
+
+  const nodes = domains.map((label, i) => {
+    const angle = (i / domains.length) * Math.PI * 2 - Math.PI/2;
+    return { label, angle, speed: 0.0016 + i*0.0002, r: 5 };
+  });
+
+  // ambient background particles
+  const particles = Array.from({length: 34}, () => ({
+    x: Math.random(), y: Math.random(),
+    vx: (Math.random()-0.5)*0.0006, vy: (Math.random()-0.5)*0.0006,
+    r: Math.random()*1.6 + 0.6
+  }));
+
+  let t = 0;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+
+    // ambient particles
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > 1) p.vx *= -1;
+      if (p.y < 0 || p.y > 1) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x*W, p.y*H, p.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(141,151,176,0.35)';
+      ctx.fill();
+    });
+
+    const R = orbitR();
+    const positions = nodes.map(n => {
+      const a = reduceMotion ? n.angle : n.angle + t*n.speed;
+      return { x: cx() + Math.cos(a)*R, y: cy() + Math.sin(a)*R*0.82, label: n.label };
+    });
+
+    // connecting lines core -> nodes
+    positions.forEach(p => {
+      const grad = ctx.createLinearGradient(cx(), cy(), p.x, p.y);
+      grad.addColorStop(0, 'rgba(76,224,210,0.5)');
+      grad.addColorStop(1, 'rgba(155,135,245,0.08)');
+      ctx.beginPath();
+      ctx.moveTo(cx(), cy());
+      ctx.lineTo(p.x, p.y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+    // faint ring connecting nodes
+    ctx.beginPath();
+    positions.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(148,158,196,0.14)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // traveling data pulse along each spoke
+    positions.forEach((p, i) => {
+      const phase = ((t*0.006 + i*0.6) % 1);
+      const px = cx() + (p.x - cx()) * phase;
+      const py = cy() + (p.y - cy()) * phase;
+      ctx.beginPath();
+      ctx.arc(px, py, 2.4, 0, Math.PI*2);
+      ctx.fillStyle = '#4ce0d2';
+      ctx.shadowColor = '#4ce0d2';
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+
+    // central core "H"
+    const coreR = 30;
+    const coreGrad = ctx.createRadialGradient(cx(),cy(),0,cx(),cy(),coreR*2.4);
+    coreGrad.addColorStop(0, 'rgba(76,224,210,0.35)');
+    coreGrad.addColorStop(1, 'rgba(76,224,210,0)');
+    ctx.beginPath();
+    ctx.arc(cx(), cy(), coreR*2.4, 0, Math.PI*2);
+    ctx.fillStyle = coreGrad;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(cx(), cy(), coreR, 0, Math.PI*2);
+    ctx.fillStyle = '#10152a';
+    ctx.fill();
+    ctx.lineWidth = 1.4;
+    ctx.strokeStyle = '#4ce0d2';
+    ctx.stroke();
+
+    ctx.font = "600 22px 'Space Grotesk', sans-serif";
+    ctx.fillStyle = '#edf1f7';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('H', cx(), cy()+1);
+
+    // outer node dots + labels
+    positions.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 5, 0, Math.PI*2);
+      ctx.fillStyle = '#141a33';
+      ctx.fill();
+      ctx.lineWidth = 1.3;
+      ctx.strokeStyle = '#9b87f5';
+      ctx.stroke();
+
+      ctx.font = "500 12px 'JetBrains Mono', monospace";
+      ctx.fillStyle = '#8d97b0';
+      ctx.textAlign = 'center';
+      const lx = p.x, ly = p.y + (p.y > cy() ? 20 : -16);
+      ctx.fillText(p.label, lx, ly);
+    });
+
+    t += 1;
+    if (!reduceMotion) requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+
+</body>
+</html>
